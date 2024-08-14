@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Challenges</h2>
+  <div *ngFor="let challenge of challenges" class="challenge-item">
+    <h3>{{ challenge.title }}</h3>
+    <p>{{ challenge.description }}</p>
+    <a [routerLink]="['/challenge', challenge._id]" class="btn btn-primary"
+      >View Challenge</a
+    >
+  </div>
+</div>

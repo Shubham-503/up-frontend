@@ -1,0 +1,8 @@
+.testCred {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.testCred > input {
+  width: auto;
+}
