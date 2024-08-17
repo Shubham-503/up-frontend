@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:5000/api/users';
+  private baseUrl = 'http://127.0.0.1:5000/api/v1/users';
   private jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient, private router: Router) {}

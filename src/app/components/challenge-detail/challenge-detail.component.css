@@ -1,0 +1,8 @@
+.progress-tracking {
+  margin-top: 20px;
+}
+
+.completed {
+  color: green;
+  font-weight: bold;
+}

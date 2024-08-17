@@ -14,7 +14,7 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.http
-      .get('http://localhost:5000/api/users/profile')
+      .get('http://localhost:5000/api/v1/users/profile')
       .subscribe((data) => (this.user = data));
   }
   logout() {
