@@ -1,27 +1,27 @@
 <div class="container">
-  <h2>{{ challenge?.title }}</h2>
-  <p>{{ challenge?.description }}</p>
+  <h2>{{ challenge?.challenge?.name }}</h2>
+  <p>{{ challenge?.challenge?.description }}</p>
   <p>Duration: {{ challenge?.duration }} days</p>
 
   <div class="progress-tracking">
     <h3>Track your progress</h3>
-    <div *ngFor="let day of [].constructor(challenge?.duration); let i = index">
+    <div *ngFor="let task of challenge?.userTasks; let i = index">
       <p>
         Day {{ i + 1 }}:
-        <span [ngClass]="{ completed: isCompleted(today) }">{{
-          isCompleted(today) ? "Completed" : "Not completed"
+        <span [ngClass]="{ completed: task.isCompleted }">{{
+          task.isCompleted ? "Completed" : "Not completed"
         }}</span>
         <button
-          *ngIf="!isCompleted(today)"
+          *ngIf="!task?.isCompleted"
           class="btn btn-success"
-          (click)="markProgress(true)"
+          (click)="markProgress(task?._id)"
         >
           Mark as Completed
         </button>
         <button
-          *ngIf="isCompleted(today)"
+          *ngIf="task?.isCompleted"
           class="btn btn-danger"
-          (click)="markProgress(false)"
+          (click)="markProgress(task?._id)"
         >
           Undo
         </button>

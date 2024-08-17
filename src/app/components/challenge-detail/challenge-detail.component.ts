@@ -25,10 +25,10 @@ export class ChallengeDetailComponent {
     const id = this.route.snapshot.paramMap.get('id');
     id !== null &&
       this.challengeService.getChallenge(id).subscribe((data) => {
-        this.challenge = data;
+        this.challenge = data.userChallenge;
       });
 
-    this.loadUserProgress();
+    // this.loadUserProgress();
   }
 
   enroll() {
@@ -47,22 +47,20 @@ export class ChallengeDetailComponent {
       });
   }
 
-  markProgress(completed: boolean): void {
-    this.http
-      .post(
-        'http://127.0.0.1:5000/api/v1/challenges/66c01efbf6583bd2305be8be/tasks/66c01efbf6583bd2305be8c3/toggle-task',
-        {}
-      )
-      .subscribe(() => {
-        console.log('req sent succesfully');
-      });
+  markProgress(taskId: string): void {
+    // this.http
+    //   .post(
+    //     'http://127.0.0.1:5000/api/v1/challenges/66c01efbf6583bd2305be8be/tasks/66c01efbf6583bd2305be8c3/toggle-task',
+    //     {}
+    //   )
+    //   .subscribe(() => {
+    //     console.log('req sent succesfully');
+    //   });
     const id = this.route.snapshot.paramMap.get('id');
     id !== null &&
-      this.challengeService
-        .updateProgress(id, { date: this.today, completed })
-        .subscribe(() => {
-          this.loadUserProgress();
-        });
+      this.challengeService.updateProgress(id, taskId).subscribe(() => {
+        // this.loadUserProgress();
+      });
   }
 
   isCompleted(date: string): boolean {

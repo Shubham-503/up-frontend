@@ -30,10 +30,10 @@ export class ChallengeService {
     return this.http.get(`${this.baseUrl}/${challengeId}/progress`);
   }
 
-  updateProgress(
-    challengeId: string,
-    progress: { date: string; completed: boolean }
-  ): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${challengeId}/progress`, progress);
+  updateProgress(challengeId: string, taskId: string): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/${challengeId}/tasks/${taskId}/toggle-task`,
+      {}
+    );
   }
 }
