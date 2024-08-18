@@ -3,6 +3,13 @@
   <div *ngIf="user">
     <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <button class="btn btn-secondary" routerLink="/challenge">
+      Create Challenges
+    </button>
+    <button class="btn btn-secondary" routerLink="/challenges">
+      Challenges
+    </button>
     <button class="btn btn-secondary" (click)="logout()">Logout</button>
   </div>
 </div>

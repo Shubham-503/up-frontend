@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 import { ChallengesListComponent } from './components/challenges-list/challenges-list.component';
 import { ChallengeDetailComponent } from './components/challenge-detail/challenge-detail.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ChallengeFormComponent } from './components/challenge-form/challenge-form.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,15 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ProfileComponent,
     ChallengesListComponent,
     ChallengeDetailComponent,
+    ChallengeFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>Create New Challenge</h2>
+
+  <form [formGroup]="challengeForm" (ngSubmit)="onSubmit()">
+    <!-- Challenge Details -->
+    <div>
+      <label for="title">Challenge Title:</label>
+      <input id="title" formControlName="title" required />
+
+      <label for="description">Challenge Description:</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        required
+      ></textarea>
+      <label for="startDate">Unlock Date:</label>
+      <input id="startDate" type="date" formControlName="startDate" required />
+    </div>
+
+    <!-- Tasks -->
+    <div formArrayName="tasks">
+      <h3>Tasks</h3>
+      <button type="button" (click)="addTask(tasks.length)">Add Task</button>
+
+      <div
+        *ngFor="let task of tasks.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <h4>Task {{ i + 1 }}</h4>
+
+        <label for="taskTitle">Title:</label>
+        <input id="taskTitle" formControlName="title" required />
+
+        <label for="taskDescription">Description:</label>
+        <textarea
+          id="taskDescription"
+          formControlName="description"
+          required
+        ></textarea>
+
+        <!-- <label for="unlockDate">Unlock Date:</label>
+        <input
+          id="unlockDate"
+          type="date"
+          formControlName="unlockDate"
+          required
+        /> -->
+
+        <button type="button" (click)="removeTask(i)">Remove Task</button>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="!challengeForm.valid">
+      Create Challenge
+    </button>
+  </form>
+</div>

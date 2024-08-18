@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { ChallengesListComponent } from './components/challenges-list/challenges-list.component';
 import { ChallengeDetailComponent } from './components/challenge-detail/challenge-detail.component';
+import { ChallengeFormComponent } from './components/challenge-form/challenge-form.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'challenges', component: ChallengesListComponent },
   { path: 'challenge/:id', component: ChallengeDetailComponent },
+  { path: 'challenge', component: ChallengeFormComponent },
 ];
 
 @NgModule({

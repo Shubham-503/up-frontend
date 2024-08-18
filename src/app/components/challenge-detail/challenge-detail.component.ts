@@ -41,10 +41,14 @@ export class ChallengeDetailComponent {
           }),
           map((response) => {
             console.log('logging for response: ', response);
-
-            this.challenge$ = of(response.userChallenge.challenge);
-            this.userTasks$ = of(response.userChallenge.userTasks);
-            return response.userChallenge; // Optional: if you want to use userChallenge directly
+            if (response?.status) {
+              console.log('logging from inside if:');
+              this.challenge$ = of(response?.userChallenge.challenge);
+              this.userTasks$ = of(response?.userChallenge.userTasks);
+              return response.userChallenge; // Optional: if you want to use userChallenge directly
+            }
+            this.challenge$ = of(response);
+            this.userTasks$ = of(response?.tasks);
           })
         )
         .subscribe();
