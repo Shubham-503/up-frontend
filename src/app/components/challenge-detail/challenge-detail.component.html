@@ -1,11 +1,12 @@
-<div class="container">
-  <h2>{{ challenge?.challenge?.name }}</h2>
-  <p>{{ challenge?.challenge?.description }}</p>
+<h1>Temp data</h1>
+<div *ngIf="challenge$ | async as challenge" class="container">
+  <h2>{{ challenge?.name }}</h2>
+  <p>{{ challenge?.description }}</p>
   <p>Duration: {{ challenge?.duration }} days</p>
 
   <div class="progress-tracking">
     <h3>Track your progress</h3>
-    <div *ngFor="let task of challenge?.userTasks; let i = index">
+    <div *ngFor="let task of userTasks$ | async; let i = index">
       <p>
         Day {{ i + 1 }}:
         <span [ngClass]="{ completed: task.isCompleted }">{{

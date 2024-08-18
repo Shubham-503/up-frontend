@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,13 @@ export class ChallengeService {
   }
 
   getChallenge(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching challenge:', error);
+        // Optionally, return an empty object or an appropriate error message
+        return of({ userChallenge: { challenge: null, userTasks: [] } });
+      })
+    );
   }
 
   enrollInChallenge(id: string): Observable<any> {

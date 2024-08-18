@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { map, Observable, of, shareReplay, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChallengeService } from 'src/app/services/challenge.service';
 
@@ -10,9 +11,11 @@ import { ChallengeService } from 'src/app/services/challenge.service';
   styleUrls: ['./challenge-detail.component.css'],
 })
 export class ChallengeDetailComponent {
-  challenge: any;
+  challenge$: Observable<any>;
+  userTasks$: Observable<any>;
   userProgress: any[] = [];
   today: string = new Date().toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+  userChallenge$: Observable<any>;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,10 +26,29 @@ export class ChallengeDetailComponent {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    id !== null &&
-      this.challengeService.getChallenge(id).subscribe((data) => {
-        this.challenge = data.userChallenge;
-      });
+    if (id !== null) {
+      // const source$ = this.challengeService.getChallenge(id);
+
+      // this.challenge$ = source$.pipe(map((items) => items.challenge));
+      // this.userTasks$ = source$.pipe(map((items) => items.userTask$));
+      console.log('just before getChallenge called');
+
+      this.challengeService
+        .getChallenge(id)
+        .pipe(
+          tap(() => {
+            console.log('before making observable');
+          }),
+          map((response) => {
+            console.log('logging for response: ', response);
+
+            this.challenge$ = of(response.userChallenge.challenge);
+            this.userTasks$ = of(response.userChallenge.userTasks);
+            return response.userChallenge; // Optional: if you want to use userChallenge directly
+          })
+        )
+        .subscribe();
+    }
 
     // this.loadUserProgress();
   }
@@ -58,9 +80,16 @@ export class ChallengeDetailComponent {
     //   });
     const id = this.route.snapshot.paramMap.get('id');
     id !== null &&
-      this.challengeService.updateProgress(id, taskId).subscribe(() => {
-        // this.loadUserProgress();
-      });
+      this.challengeService
+        .updateProgress(id, taskId)
+        .pipe(
+          map((response) => {
+            this.userTasks$ = of(response.userChallenge.userTasks);
+          })
+        )
+        .subscribe(() => {
+          // this.loadUserProgress();
+        });
   }
 
   isCompleted(date: string): boolean {
