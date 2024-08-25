@@ -1,10 +1,16 @@
 <div class="container">
   <h2>Challenges</h2>
   <div *ngFor="let challenge of challenges" class="challenge-item">
+    <app-challenge-card
+      [title]="challenge.name"
+      [description]="challenge.description"
+      [duration]="'20'"
+      [Id]="challenge._id"
+    ></app-challenge-card>
     <h3>{{ challenge.name }}</h3>
     <p>{{ challenge.description }}</p>
     <a [routerLink]="['/challenge', challenge._id]" class="btn btn-primary"
-      >View Challenge</a
-    >
+      >View Challenge
+    </a>
   </div>
 </div>

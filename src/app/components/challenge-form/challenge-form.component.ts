@@ -9,7 +9,7 @@ import { ChallengeService } from 'src/app/services/challenge.service';
 })
 export class ChallengeFormComponent {
   challengeForm: FormGroup;
-
+  tempDesc: string;
   constructor(
     private fb: FormBuilder,
     private challengeService: ChallengeService
@@ -19,6 +19,7 @@ export class ChallengeFormComponent {
       description: ['Desc from ui', Validators.required],
       tasks: this.fb.array([]),
       startDate: ['', Validators.required],
+      duration: [''],
     });
 
     // Start with one task by default
@@ -33,7 +34,9 @@ export class ChallengeFormComponent {
     const taskGroup = this.fb.group({
       title: ['task title from ui', Validators.required],
       description: ['task desc from ui', Validators.required],
-      order: [i],
+      rewards: [i],
+      unlockDate: ['', Validators.required],
+      status: ['', Validators.required],
       // unlockDate: ['', Validators.required],
     });
 
@@ -46,9 +49,9 @@ export class ChallengeFormComponent {
 
   onSubmit(): void {
     if (this.challengeForm.valid) {
-      this.challengeService
-        .createChallenge(this.challengeForm.value)
-        .subscribe();
+      // this.challengeService
+      //   .createChallenge(this.challengeForm.value)
+      //   .subscribe();
       console.log('Challenge Data:', this.challengeForm.value);
       // Here you would typically send the form data to your backend
     }

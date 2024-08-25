@@ -3,18 +3,53 @@
 
   <form [formGroup]="challengeForm" (ngSubmit)="onSubmit()">
     <!-- Challenge Details -->
-    <div>
-      <label for="title">Challenge Title:</label>
-      <input id="title" formControlName="title" required />
+    <div class="challengeForm-container">
+      <div class="input-container title-container">
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" required />
+      </div>
 
-      <label for="description">Challenge Description:</label>
-      <textarea
+      <div class="input-container row3">
+        <div class="input-container startDate-container">
+          <label for="startDate">Start Date:</label>
+          <input
+            id="startDate"
+            type="date"
+            formControlName="startDate"
+            required
+          />
+        </div>
+        <div class="input-container tasksVisibility-container">
+          <label for="tasksVisibility">Tasks Visibility:</label>
+          <select name="tasksVisibility" id="tasksVisibility">
+            <option value="all">All</option>
+            <option value="enrolled">After Enrollment</option>
+            <option value="unlock">After Unlock</option>
+          </select>
+        </div>
+        <div class="input-container duration-container">
+          <label for="duration">Duration:</label>
+          <input
+            id="startDate"
+            type="number"
+            formControlName="duration"
+            required
+          />
+        </div>
+      </div>
+      <div class="input-container description-container">
+        <label for="description">Challenge Description:</label>
+        <p>{{ tempDesc }}</p>
+        <quill-editor
+          formControlName="description"
+          [(ngModel)]="tempDesc"
+        ></quill-editor>
+      </div>
+      <!-- <textarea
         id="description"
         formControlName="description"
         required
-      ></textarea>
-      <label for="startDate">Unlock Date:</label>
-      <input id="startDate" type="date" formControlName="startDate" required />
+      ></textarea> -->
     </div>
 
     <!-- Tasks -->
@@ -27,24 +62,39 @@
         [formGroupName]="i"
       >
         <h4>Task {{ i + 1 }}</h4>
+        <div class="input-container">
+          <label for="taskTitle">Title:</label>
+          <input id="taskTitle" formControlName="title" required />
+        </div>
 
-        <label for="taskTitle">Title:</label>
-        <input id="taskTitle" formControlName="title" required />
+        <div class="input-container row3">
+          <div class="input-container startDate-container">
+            <label for="unlockDate">Unlock Date:</label>
+            <input
+              id="unlockDate"
+              formControlName="unlockDate"
+              type="date"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="status">Status:</label>
+            <select name="status" formControlName="status" id="status">
+              <option value="locked">Locked</option>
+              <option value="notCompleted">Not Completed</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div class="input-container duration-container">
+            <label for="rewards">Rewards:</label>
+            <input id="rewards" type="number" formControlName="rewards" />
+          </div>
+        </div>
 
-        <label for="taskDescription">Description:</label>
-        <textarea
-          id="taskDescription"
-          formControlName="description"
-          required
-        ></textarea>
-
-        <!-- <label for="unlockDate">Unlock Date:</label>
-        <input
-          id="unlockDate"
-          type="date"
-          formControlName="unlockDate"
-          required
-        /> -->
+        <div class="input-container description-container">
+          <label for="taskDescription">Description:</label>
+          <quill-editor formControlName="description"></quill-editor>
+        </div>
 
         <button type="button" (click)="removeTask(i)">Remove Task</button>
       </div>

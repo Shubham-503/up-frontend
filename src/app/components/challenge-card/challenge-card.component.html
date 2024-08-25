@@ -1,0 +1,13 @@
+<div class="card">
+  <h2>{{ title }}</h2>
+  <p>
+    {{ description }}
+  </p>
+  <div class="info">
+    <span><span class="label">Duration:</span> {{ duration }}</span>
+    <span
+      ><span class="label">Creator:</span> Jane Doe, Senior UX Designer</span
+    >
+  </div>
+  <button [routerLink]="['/challenge', Id]" class="btn">More Info</button>
+</div>

@@ -1,0 +1,28 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.input-container input {
+  flex: 1;
+}
+
+.challengeForm-container {
+}
+
+.description-container {
+  display: block;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.row3 {
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+#tasksVisibility {
+  padding: 5px;
+}

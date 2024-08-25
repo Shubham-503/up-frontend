@@ -1,0 +1,44 @@
+.card {
+  background-color: #ffffff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.card h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333333;
+}
+.card p {
+  margin: 10px 0;
+  color: #666666;
+  line-height: 1.5;
+}
+.card .info {
+  margin-top: 15px;
+  font-size: 14px;
+}
+.card .info .label {
+  font-weight: bold;
+  color: #333333;
+}
+.card .info span {
+  display: block;
+  margin-bottom: 5px;
+}
+.card .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.card .btn:hover {
+  background-color: #0056b3;
+}
