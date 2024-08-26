@@ -39,12 +39,13 @@ import { ChallengeCardComponent } from './components/challenge-card/challenge-ca
     ReactiveFormsModule,
     QuillModule.forRoot({
       modules: {
-        syntax: true,
         toolbar: [
           ['bold', 'italic', 'underline'], // toggled buttons
           [{ list: 'ordered' }, { list: 'bullet' }], // lists
           [{ header: [1, 2, 3, 4, 5, 6, false] }], // header dropdown
-          ['link', 'image'], // link and image
+          ['link', 'image'], // link and image,
+          [{ align: ['', 'right', 'center'] }],
+          [{ direction: 'ltr' }],
         ],
       },
     }),

@@ -7,7 +7,7 @@
 }
 
 h2 {
-  text-align: center;
+  /* text-align: center; */
   margin-bottom: 20px;
 }
 
@@ -30,9 +30,9 @@ button {
   padding: 10px;
 }
 
-p {
+/* p {
   text-align: center;
-}
+} */
 
 /*!
  * Quill Editor v1.3.7

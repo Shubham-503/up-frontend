@@ -1,5 +1,8 @@
 <div class="container">
   <h2>Create New Challenge</h2>
+  <!-- <p>{{ tempDesc }}</p>
+
+  <quill-editor [(ngModel)]="tempDesc"></quill-editor> -->
 
   <form [formGroup]="challengeForm" (ngSubmit)="onSubmit()">
     <!-- Challenge Details -->
@@ -39,11 +42,10 @@
       </div>
       <div class="input-container description-container">
         <label for="description">Challenge Description:</label>
-        <p>{{ tempDesc }}</p>
-        <quill-editor
-          formControlName="description"
-          [(ngModel)]="tempDesc"
-        ></quill-editor>
+
+        <!-- <p>{{ tempDesc }}</p> -->
+
+        <quill-editor formControlName="description"></quill-editor>
       </div>
       <!-- <textarea
         id="description"
@@ -101,8 +103,8 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="!challengeForm.valid">
-      Create Challenge
-    </button>
+    <!-- [disabled]="!challengeForm.valid" -->
+    <!-- <p [innerHTML]="challengeForm?.get('description')?.value"></p> -->
+    <button type="submit">Create Challenge</button>
   </form>
 </div>

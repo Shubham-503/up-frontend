@@ -16,7 +16,7 @@ export class ChallengeFormComponent {
   ) {
     this.challengeForm = this.fb.group({
       title: ['Title from ui', Validators.required],
-      description: ['Desc from ui', Validators.required],
+      description: ['', Validators.required],
       tasks: this.fb.array([]),
       startDate: ['', Validators.required],
       duration: [''],
@@ -48,6 +48,8 @@ export class ChallengeFormComponent {
   }
 
   onSubmit(): void {
+    console.log('Challenge Data:', this.challengeForm.value);
+
     if (this.challengeForm.valid) {
       // this.challengeService
       //   .createChallenge(this.challengeForm.value)
