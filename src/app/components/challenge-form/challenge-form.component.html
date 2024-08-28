@@ -24,7 +24,18 @@
         </div>
         <div class="input-container tasksVisibility-container">
           <label for="tasksVisibility">Tasks Visibility:</label>
-          <select name="tasksVisibility" id="tasksVisibility">
+          <select
+            name="tasksVisibility"
+            formControlName="tasksVisibility"
+            id="tasksVisibility"
+          >
+            <!-- TODO: use enum for tasksVisibility -->
+            <!-- <option
+              *ngFor="let status of tasksVisibility | keyvalue"
+              [value]="status.value"
+            >
+              {{ status.key }}
+            </option> -->
             <option value="all">All</option>
             <option value="enrolled">After Enrollment</option>
             <option value="unlock">After Unlock</option>
@@ -105,6 +116,7 @@
     <!-- Submit Button -->
     <!-- [disabled]="!challengeForm.valid" -->
     <!-- <p [innerHTML]="challengeForm?.get('description')?.value"></p> -->
+    <!-- [disabled]="!challengeForm.valid" -->
     <button type="submit">Create Challenge</button>
   </form>
 </div>

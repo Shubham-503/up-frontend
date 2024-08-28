@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ChallengeService } from 'src/app/services/challenge.service';
+
+export enum TasksVisibility {
+  All = 'all',
+  Unlock = 'unlock',
+  Enrolled = 'enrolled',
+}
 
 @Component({
   selector: 'app-challenge-form',
@@ -10,18 +17,28 @@ import { ChallengeService } from 'src/app/services/challenge.service';
 export class ChallengeFormComponent {
   challengeForm: FormGroup;
   tempDesc: string;
+  submittedContent: SafeHtml | any;
+  tasksVisibility: any = [];
+
   constructor(
     private fb: FormBuilder,
-    private challengeService: ChallengeService
+    private challengeService: ChallengeService,
+    private sanitizer: DomSanitizer
   ) {
     this.challengeForm = this.fb.group({
       title: ['Title from ui', Validators.required],
-      description: ['', Validators.required],
+      description: ['hey', Validators.required],
       tasks: this.fb.array([]),
       startDate: ['', Validators.required],
-      duration: [''],
+      duration: ['', Validators.required],
+      tasksVisibility: [TasksVisibility.All, Validators.required],
     });
 
+    this.tasksVisibility = Object.keys(TasksVisibility).map((key) => ({
+      key,
+      value: TasksVisibility[key as keyof typeof TasksVisibility],
+    }));
+    console.log(this.tasksVisibility);
     // Start with one task by default
     this.addTask(0);
   }
@@ -48,14 +65,50 @@ export class ChallengeFormComponent {
   }
 
   onSubmit(): void {
-    console.log('Challenge Data:', this.challengeForm.value);
+    // this.submittedContent = this.sanitizer.bypassSecurityTrustHtml(
+    //   this.challengeForm.value
+    // );
+    // console.log('Challenge Data:', this.challengeForm.value);
+    // console.log('submitted content', this.submittedContent);
+    this.submittedContent = this.sanitizer.bypassSecurityTrustHtml(
+      this.challengeForm.value
+    );
+    console.log('submittedContent: ', this.submittedContent);
 
     if (this.challengeForm.valid) {
-      // this.challengeService
-      //   .createChallenge(this.challengeForm.value)
-      //   .subscribe();
+      this.challengeService
+        .createChallenge(
+          this.submittedContent.changingThisBreaksApplicationSecurity
+        )
+        .subscribe();
+
       console.log('Challenge Data:', this.challengeForm.value);
-      // Here you would typically send the form data to your backend
     }
   }
 }
+
+// {
+//   "changingThisBreaksApplicationSecurity": {
+//       "title": "30 days of fitness ",
+//       "description": "<h1>Fitness Challenge</h1><ol><li><strong>wake up on time</strong></li><li>stretching</li><li>do gym</li></ol>",
+//       "tasks": [
+//           {
+//               "title": "wake up on time",
+//               "description": "<h3>Waking up on time can be a good start</h3><p>Ping your <strong>progress in chat</strong></p>",
+//               "rewards": 0,
+//               "unlockDate": "2024-08-29",
+//               "status": "locked"
+//           },
+//           {
+//               "title": "stretching",
+//               "description": "<h3>Stretching can be a good start</h3><p>Ping your <strong>progress in chat</strong></p>",
+//               "rewards": 1,
+//               "unlockDate": "2024-08-30",
+//               "status": "locked"
+//           }
+//       ],
+//       "startDate": "2024-08-13",
+//       "duration": 30,
+//       "tasksVisibility": "all"
+//   }
+// }
